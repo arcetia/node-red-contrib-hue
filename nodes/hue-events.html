@@ -1,0 +1,66 @@
+<script type="text/javascript">
+    RED.nodes.registerType('hue-events',{
+        category: 'hue',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            hueConfig: {value:"", type:"hue-config", required:true},
+            deviceType: {value:[]}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "bridge.png",
+        label: function() {
+            return this.name||"hue-events";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="hue-events">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-hueConfig"><i class="fa fa-cog"></i> Hue Bridge</label>
+        <input type="text" id="node-input-hueConfig">
+    </div>
+    <div class="form-row">
+        <label for="node-input-deviceType"><i class="fa fa-filter"></i> Device Types</label>
+        <select id="node-input-deviceType" multiple style="height: 150px;">
+            <option value="device">Device</option>
+            <option value="light">Light</option>
+            <option value="button">Button</option>
+            <option value="relative_rotary">Relative rotary</option>
+            <option value="grouped_light">Grouped Light</option>
+            <option value="scene">Scene</option>
+        </select>
+        <small style="display: block; margin-top: 5px;">Hold Ctrl/Cmd to select multiple types. Leave empty to receive all events.</small>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="hue-events">
+    <p>A node that listens for events from a Philips Hue bridge using the CLIP v2 API.</p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>None</dt>
+    </dl>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">object</span></dt>
+        <dd>The filtered Hue event data received from the bridge.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>This node connects to a Philips Hue bridge and listens for all events using the CLIP v2 API stream. 
+    It will automatically attempt to reconnect if the connection is lost.</p>
+
+    <p>You can filter events by selecting one or more device types from the list. The node will only output events
+    where the device type matches any of the selected types (e.g., "light", "room", "button", etc.). 
+    If no types are selected, all events will be received.</p>
+
+    <h3>Configuration</h3>
+    <p>Select a Hue bridge configuration node that contains the bridge hostname and API key.</p>
+</script>

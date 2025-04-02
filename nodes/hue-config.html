@@ -1,0 +1,49 @@
+<script type="text/javascript">
+    RED.nodes.registerType('hue-config',{
+        category: 'config',
+        defaults: {
+            name: {value:""},
+            hostname: {value:""},
+            apiKey: {value:""}
+        },
+        credentials: {
+            hostname: {type:"text"},
+            apiKey: {type:"text"}
+        },
+        label: function() {
+            return this.name||"hue-config";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="hue-config">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-hostname"><i class="fa fa-globe"></i> Hostname</label>
+        <input type="text" id="node-config-input-hostname" placeholder="192.168.1.2">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-apiKey"><i class="fa fa-key"></i> API Key</label>
+        <input type="text" id="node-config-input-apiKey" placeholder="your-api-key">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="hue-config">
+    <p>A configuration node for Philips Hue bridge connection settings.</p>
+
+    <h3>Configuration</h3>
+    <dl class="message-properties">
+        <dt>Hostname <span class="property-type">string</span></dt>
+        <dd>The IP address or hostname of your Hue bridge.</dd>
+
+        <dt>API Key <span class="property-type">string</span></dt>
+        <dd>The API key for authenticating with your Hue bridge.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>This node stores the connection details for a Philips Hue bridge. You can create multiple
+    configuration nodes if you need to connect to different bridges.</p>
+</script> 

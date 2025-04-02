@@ -1,0 +1,20 @@
+{
+  "name": "node-red-contrib-hue",
+  "version": "1.0.0",
+  "description": "Node-RED nodes for Philips Hue CLIP v2 API",
+  "node-red": {
+    "nodes": {
+      "hue-events": "nodes/hue-events.js",
+      "hue-config": "nodes/hue-config.js",
+      "hue-control": "nodes/hue-control.js"
+    }
+  },
+  "keywords": [
+    "node-red",
+    "hue",
+    "philips",
+    "events"
+  ],
+  "author": "Tony Quinio",
+  "license": "MIT"
+} 

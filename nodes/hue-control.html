@@ -1,0 +1,89 @@
+<script type="text/javascript">
+    RED.nodes.registerType('hue-control',{
+        category: 'hue',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            hueConfig: {value:"", type:"hue-config", required:true},
+            deviceId: {value:""},
+            deviceType: {value:"light", required:true}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "light.png",
+        label: function() {
+            return this.name||"hue-control";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="hue-control">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-hueConfig"><i class="fa fa-cog"></i> Hue Bridge</label>
+        <input type="text" id="node-input-hueConfig">
+    </div>
+    <div class="form-row">
+        <label for="node-input-deviceId"><i class="fa fa-lightbulb"></i> Device ID</label>
+        <input type="text" id="node-input-deviceId" placeholder="Optional - can be set via msg.deviceId">
+    </div>
+    <div class="form-row">
+        <label for="node-input-deviceType"><i class="fa fa-cube"></i> Device Type</label>
+        <select id="node-input-deviceType">
+            <option value="device">Device</option>
+            <option value="light">Light</option>
+            <option value="room">Room</option>
+            <option value="button">Button</option>
+            <option value="grouped_light">Grouped Light</option>
+            <option value="scene">Scene</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="hue-control">
+    <p>A node for controlling Philips Hue devices using the CLIP v2 API.</p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>deviceId <span class="property-type">string</span></dt>
+        <dd>The ID of the Hue device to control. Can be set in node config or via msg.deviceId.</dd>
+
+        <dt>deviceType <span class="property-type">string</span></dt>
+        <dd>The type of device to control. Must be one of: "device", "light", "room", "button", "grouped_light", "scene". Can be set in node config or via msg.deviceType.</dd>
+
+        <dt>payload <span class="property-type">object</span></dt>
+        <dd>The exact payload to send to the Hue API. This will be sent as-is without any transformation.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>This node allows you to control any Hue device using the CLIP v2 API. It sends the payload directly to the API
+    without any transformation, allowing you to use any valid CLIP v2 API command.</p>
+
+    <h3>Examples</h3>
+    <p>Control a light:</p>
+    <pre><code>{
+    "deviceId": "123e4567-e89b-12d3-a456-426614174000",
+    "deviceType": "light",
+    "payload": {
+        "on": { "on": true },
+        "dimming": { "brightness": 80 },
+        "color": {
+            "xy": { "x": 0.5, "y": 0.5 },
+            "gamut": { "type": "gamut_a" }
+        }
+    }
+}</code></pre>
+
+    <p>Control a room:</p>
+    <pre><code>{
+    "deviceId": "room-1",
+    "deviceType": "room",
+    "payload": {
+        "on": { "on": true },
+        "dimming": { "brightness": 100 }
+    }
+}</code></pre>
+</script> 
