@@ -39,15 +39,12 @@ module.exports = function(RED) {
                 done();
                 return;
             }
-
-            const response = hueAPI.makeRequest(`clip/v2/resource/${deviceType}/${deviceId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
-            response.then(r => r.json()).finally(() => done())
+            try {
+                hueConfig.update(deviceType, deviceId, updateData).finally(() => done())
+            } catch (e) {
+                node.error(e);
+                done(e);
+            }
         });
     }
 
