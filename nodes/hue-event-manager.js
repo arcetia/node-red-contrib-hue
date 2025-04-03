@@ -1,3 +1,5 @@
+const HueApi = require('./hue-utils');
+
 class HueEventManager {
     constructor() {
         this.streams = new Map();
@@ -30,8 +32,14 @@ class HueEventManager {
             return;
         }
 
-        const hueAPI = new (require('./hue-utils'))(config);
-        const stream = await hueAPI.getEventStream();
+        const hueAPI = new HueApi(config);
+
+        const response = await hueAPI.makeRequest('eventstream/clip/v2', {
+            headers: {
+                'Accept': 'text/event-stream'
+            }
+        });
+        const stream = response.body;
         this.streams.set(streamKey, stream);
 
         let buffer = '';

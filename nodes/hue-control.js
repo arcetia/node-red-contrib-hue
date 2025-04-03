@@ -40,14 +40,14 @@ module.exports = function(RED) {
                 return;
             }
 
-            hueAPI.controlDevice(deviceType, deviceId, updateData)
-                .then(() => {
-                    done();
-                })
-                .catch(error => {
-                    node.error("Failed to control Hue device: " + error.message);
-                    done();
-                });
+            const response = hueAPI.makeRequest(`clip/v2/resource/${deviceType}/${deviceId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            response.then(r => r.json()).finally(() => done())
         });
     }
 
