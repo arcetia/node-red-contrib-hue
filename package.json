@@ -16,8 +16,5 @@
     "events"
   ],
   "author": "Tony Quinio",
-  "license": "MIT",
-  "dependencies": {
-    "node-fetch-retry": "^2.0.1"
-  }
+  "license": "MIT"
 } 

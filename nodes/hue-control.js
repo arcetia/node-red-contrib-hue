@@ -1,5 +1,3 @@
-const HueAPI = require('./hue-utils');
-
 const VALID_DEVICE_TYPES = ['device', 'light', 'room', 'button', 'grouped_light', 'scene', 'relative_rotary'];
 
 module.exports = function(RED) {
@@ -12,8 +10,6 @@ module.exports = function(RED) {
             node.error("Missing Hue configuration");
             return;
         }
-
-        const hueAPI = new HueAPI(hueConfig);
 
         node.on('input', function(msg, send, done) {
             const deviceId = msg.deviceId || config.deviceId;
